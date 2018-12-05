@@ -71,15 +71,15 @@ public class PlayerController : MonoBehaviour {
 
         //Get input
         Vector3 inputVelocity = Vector3.zero;
-        inputVelocity.x = Input.GetAxisRaw("Horizontal") * playerAccel;
-        inputVelocity.z = Input.GetAxisRaw("Vertical") * playerAccel;
+        inputVelocity.x = Input.GetAxisRaw("Horizontal");
+        inputVelocity.z = Input.GetAxisRaw("Vertical");
 
         //Rotate to follow camera
         Quaternion inputRotator = Quaternion.EulerAngles(0, camTransform.rotation.ToEulerAngles().y, 0);
         inputVelocity = inputRotator * inputVelocity;
 
         //Apply movement
-        playerRigid.AddForce(inputVelocity);
+        playerRigid.AddForce(inputVelocity * playerAccel);
 
         //Clamp velocity in the z and x axis
         inputVelocity = playerRigid.velocity;
